@@ -1,0 +1,28 @@
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+.gulp-cache
+
+pids
+logs
+results
+_dev
+bower_components
+
+npm-debug.log
+node_modules
+server_old
+
+# OS generated stuff
+.DS_Store
+.DS_Store?
+
+# rethink db
+rethinkdb_data
+
+.build
