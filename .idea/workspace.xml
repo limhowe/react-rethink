@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa7cb8f9-a2fe-43e3-b62b-55d6d9f58bae" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/firebase/lib/FilteredList.es6" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/firebase/repos/ConversationUserLinkRepo.es6" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/firebase/repos/UserAccountRepo.es6" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/firebase/clients/UserAccountClient.es6" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/firebase/ConversationUserLinkClient.es6" afterPath="$PROJECT_DIR$/firebase/clients/ConversationUserLinkClient.es6" />
     </list>
     <ignored path="horizon-chat.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,7 +37,7 @@
         </entry>
       </file>
       <file leaf-file-name="ConversationUserLinkClient.es6" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/firebase/ConversationUserLinkClient.es6">
+        <entry file="file://$PROJECT_DIR$/firebase/clients/ConversationUserLinkClient.es6">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
               <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
@@ -115,12 +114,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserAccountRepo.es6" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserAccountRepo.es6" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/firebase/repos/UserAccountRepo.es6">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
               <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserAccountClient.es6" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/firebase/clients/UserAccountClient.es6">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+              <folding>
+                <element signature="e#0#55#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -149,6 +160,7 @@
         <option value="$PROJECT_DIR$/firebase/ConversationUserLinkRepo.es6" />
         <option value="$PROJECT_DIR$/firebase/lib/UserAccountRepo.es6" />
         <option value="$PROJECT_DIR$/firebase/repos/UserAccountRepo.es6" />
+        <option value="$PROJECT_DIR$/firebase/UserAccountClient.es6" />
       </list>
     </option>
   </component>
@@ -285,6 +297,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="horizon-chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="horizon-chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="firebase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="clients" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -302,6 +332,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/firebase/clients" />
       <recent name="$PROJECT_DIR$/firebase/repos" />
       <recent name="$PROJECT_DIR$/firebase/lib" />
     </key>
@@ -370,12 +401,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1470112244829</updated>
-      <workItem from="1470112246071" duration="569000" />
+      <workItem from="1470112246071" duration="739000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="569000" />
+    <option name="totallyTimeSpent" value="739000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -424,7 +455,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/firebase/ConversationUserLinkClient.es6">
+    <entry file="file://$PROJECT_DIR$/firebase/clients/ConversationUserLinkClient.es6">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
@@ -493,6 +524,16 @@
         <state relative-caret-position="270">
           <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/firebase/clients/UserAccountClient.es6">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
