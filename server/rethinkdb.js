@@ -30,3 +30,5 @@ export const setupDB = () => {
 export const setupTables = () => {
 
 };
+
+export default r.db(config.rethinkDB.dbName);
