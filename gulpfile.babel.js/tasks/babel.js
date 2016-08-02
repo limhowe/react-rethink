@@ -10,11 +10,3 @@ gulp.task('babel:server', () => {
   }))
   .pipe(gulp.dest(config.server.dist));
 });
-
-gulp.task('babel:public', () => {
-  return gulp.src(config.public.src)
-  .pipe(babel({
-    sourceMaps: 'inline'
-  }))
-  .pipe(gulp.dest(config.public.dist));
-});
