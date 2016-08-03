@@ -26,3 +26,5 @@ server_old
 rethinkdb_data
 
 .build
+
+.idea

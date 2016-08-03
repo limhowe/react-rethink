@@ -1,2 +1,2 @@
 import app from './express';
-import horizon from './horizon';
+import rethinkdb from './rethinkdb';
