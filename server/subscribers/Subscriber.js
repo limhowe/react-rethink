@@ -16,7 +16,7 @@ export default class Subscriber {
    * @param {socket.io} io
    */
   constructor(options, socket) {
-    this.logger = debug('rethink-chat subscriber');
+    this.logger = debug(`rethink-chat ${this.getEventName()}`);
 
     // set options
     this.options = Object.assign({}, _defaultOptions, options);
@@ -26,9 +26,6 @@ export default class Subscriber {
 
     // initialize data
     this.reset();
-
-    // set default properties
-    this.dataPool = [];
   }
 
   /**
@@ -36,10 +33,12 @@ export default class Subscriber {
    * @method reset
    */
   reset() {
+    this.dataPool = [];
+
     // watch the changes
     this.watch();
 
-    // fetches initial data
+    // retrieve initial data
     this.getData();
   }
 
@@ -50,7 +49,10 @@ export default class Subscriber {
    * @returns undefined
    */
   emit(data) {
-    const objArray = this._validateChange(data);
+    // @TODO handle data deletion and update on validate change
+    // const objArray = this._validateChange(data);
+
+    const objArray = data;
     this.logger('emit %s', JSON.stringify(objArray));
 
     this.socket.emit(this.getEventName(), {

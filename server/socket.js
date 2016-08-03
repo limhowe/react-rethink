@@ -1,14 +1,12 @@
 import socketio from 'socket.io';
-import http from 'http';
 import glob from 'glob';
+import path from 'path';
+import UserConversations from './subscribers/UserConversations';
 
 // @TODO handle session and authentication
 export default (app) => {
-  // creates a new http server
-  const server = http.createServer(app);
-
   // creates a new socket.io server
-  const io = socketio.listen(server);
+  const io = socketio.listen(app.server);
 
   const subscribers = [];
 
@@ -16,19 +14,14 @@ export default (app) => {
     socket.on('subscribe', (data) => {
       const {
         subscriber,
-        id,
         options
       } = data;
-      const subscriberClass = require(path.resolve(`./server/subscribers/${subscriber}`)).default;
-
-      if (!subscriberClass) {
-        // @TODO handle when subscriber does not exist
-        return;
-      }
-
-      new subscriberClass(options, io.sockets.socket(socket.id));
+      // @TODO load subscriber dynamically or all subscriber classes initially
+      // const subscriberClass = require(path.resolve(`./server/subscribers/${subscriber}`)).default;
+      new UserConversations(options, io.sockets.sockets[socket.id]);
     });
 
+    // @TODO handle disconnect for reconnection
     // socket.on('disconnect', () => {
     //
     // });
