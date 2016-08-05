@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 const logger = debug('rethink-chat subscriber');
 const _defaultOptions = {
-  limit: 10
+  limit: 10 // to be used to set certain amount of resources to return
 };
 
 export default class Subscriber {
@@ -48,7 +48,7 @@ export default class Subscriber {
    * @param Array<Object> data
    * @returns undefined
    */
-  emit(data) {
+  emit(data, action = 'get') {
     // @TODO handle data deletion and update on validate change
     // const objArray = this._validateChange(data);
 
@@ -56,9 +56,23 @@ export default class Subscriber {
     this.logger('emit %s', JSON.stringify(objArray));
 
     this.socket.emit(this.getEventName(), {
-      action: 'change',
+      action, // get, inserted, updated, deleted
       data: objArray
     });
+  }
+
+  /**
+   * closes change feed watching the resource
+   * @method close
+   */
+  close() {
+    if (!this.feeds) {
+      this.logger('No feed to close!')
+      return;
+    }
+
+    this.feeds.close();
+    this.feeds = null;
   }
 
   // ========================================
@@ -87,28 +101,5 @@ export default class Subscriber {
    */
   getEventName() {
     this.logger('subscriber name should be overridden');
-  }
-
-  // ========================================
-  // Private methods
-  // ========================================
-  /**
-   * check for the changes against id stored in dataPool
-   * @method _validateChange
-   * @private
-   * @param Array<Object> dataArary
-   * @returns Array<Object> filteredArray
-   */
-  _validateChange(objArray) {
-    const filteredArray = _.filter(objArray,
-      (obj) => (_.indexOf(this.dataPool, obj.id) === -1)
-    );
-
-    // updates dataPool
-    filteredArray.forEach((obj) => {
-      this.dataPool.push(obj.id);
-    });
-
-    return filteredArray;
   }
 }

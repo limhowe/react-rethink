@@ -1,5 +1,5 @@
 import Subscriber from './Subscriber';
-import ConversationUserLink from '../models/ConversationUserLink';
+import Message from '../models/ConversationUserLink';
 
 export default class UserConversations extends Subscriber {
   // id = userId here
@@ -8,9 +8,10 @@ export default class UserConversations extends Subscriber {
   }
 
   getData(id, action) {
+    let query;
     if (id) {
       // in case of detecting change feed, we return specific resource rather than return all
-      ConversationUserLink.get(id)
+      Message.get(id)
       .getJoin({
         conversation: true,
         user: true
@@ -18,10 +19,10 @@ export default class UserConversations extends Subscriber {
       .run()
       .then((data) => {
         this.logger('Get Data Success');
-        this.emit([data], action);
+        this.emit(data, action);
       });
     } else {
-      ConversationUserLink.filter({ userId: this.options.id })
+      Message.filter({ convId: this.options.id })
       .getJoin({
         conversation: true,
         user: true
@@ -35,10 +36,11 @@ export default class UserConversations extends Subscriber {
   }
 
   watch() {
-    ConversationUserLink.filter({ userId: this.options.id })
+    Message.filter({ convId: this.options.id })
     .changes()
     .then((feeds) => {
       this.feeds = feeds;
+
       feeds.each((error, doc) => {
         // @TODO handle multiple doc change at the same time
         if (error) {
@@ -51,7 +53,7 @@ export default class UserConversations extends Subscriber {
         if (doc.isSaved() === false) {
           this.logger('Following document was deleted: %s', JSON.stringify(doc));
           // we don't need to join query in case of deletion
-          this.emit([doc], 'delete');
+          this.emit(doc, 'delete');
         } else {
           if (doc.getOldValue() == null) {
             this.logger('A new document was inserted: %s', JSON.stringify(doc));
@@ -60,7 +62,7 @@ export default class UserConversations extends Subscriber {
             this.logger('A document was updated');
             this.logger('Old Value: %s', JSON.stringify(doc.getOldValue()));
             this.logger('New Value: %s', JSON.stringify(doc));
-            this.getData(doc.id, 'update');
+            this.getData(doc.id, 'updat');
           }
         }
       });

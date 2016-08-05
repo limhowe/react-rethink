@@ -5,8 +5,15 @@ socket.on('UserConversations', (data) => {
 });
 
 socket.emit('subscribe', {
-  subscriber: 'UserConversations',
+  subscriberName: 'UserConversations',
   options: {
-    userId: '4be42c28-a062-4b68-b164-ebe596b53e5e'
+    id: '4be42c28-a062-4b68-b164-ebe596b53e5e' // userId
+  }
+});
+
+socket.emit('unsubscribe', {
+  subscriberName: 'UserConversations',
+  options: {
+    id: '4be42c28-a062-4b68-b164-ebe596b53e5e' // userId
   }
 });

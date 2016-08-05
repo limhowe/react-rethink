@@ -3,6 +3,7 @@ const type = thinky.type;
 
 const ConversationUserLink = thinky.createModel('convuserlink',
   type.object().schema({
+    id: type.string(),
     userId: type.string(),
     convId: type.string(),
     onlineStatus: type.string()
