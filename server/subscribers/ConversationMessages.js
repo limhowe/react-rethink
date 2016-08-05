@@ -62,7 +62,7 @@ export default class UserConversations extends Subscriber {
             this.logger('A document was updated');
             this.logger('Old Value: %s', JSON.stringify(doc.getOldValue()));
             this.logger('New Value: %s', JSON.stringify(doc));
-            this.getData(doc.id, 'updat');
+            this.getData(doc.id, 'update');
           }
         }
       });
