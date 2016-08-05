@@ -27,3 +27,4 @@ rethinkdb_data
 
 .build
 /.idea/workspace.xml
+/.idea
