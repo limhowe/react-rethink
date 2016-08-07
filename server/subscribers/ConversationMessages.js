@@ -1,7 +1,7 @@
 import Subscriber from './Subscriber';
 import Message from '../models/ConversationUserLink';
 
-export default class UserConversations extends Subscriber {
+export default class ConversationMessages extends Subscriber {
   // id = userId here
   constructor(...args) {
     super(...args);
@@ -62,7 +62,7 @@ export default class UserConversations extends Subscriber {
             this.logger('A document was updated');
             this.logger('Old Value: %s', JSON.stringify(doc.getOldValue()));
             this.logger('New Value: %s', JSON.stringify(doc));
-            this.getData(doc.id, 'updat');
+            this.getData(doc.id, 'update');
           }
         }
       });
@@ -73,6 +73,6 @@ export default class UserConversations extends Subscriber {
   }
 
   getEventName() {
-    return 'UserConversations';
+    return 'ConversationMessages';
   }
 }

@@ -33,8 +33,6 @@ export default class Subscriber {
    * @method reset
    */
   reset() {
-    this.dataPool = [];
-
     // watch the changes
     this.watch();
 
