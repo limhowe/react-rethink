@@ -1,4 +1,6 @@
 import thinky from '../thinky';
+import r from 'rethinkdb';
+
 const type = thinky.type;
 
 const Message = thinky.createModel('message',
@@ -7,7 +9,7 @@ const Message = thinky.createModel('message',
     text: type.string().required(),
     userId: type.string(),
     convId: type.string(),
-    createdAt: type.date()
+    createdAt: type.date().default(r.now())
   }).removeExtra()
 );
 

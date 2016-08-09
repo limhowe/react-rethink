@@ -6,7 +6,7 @@ const ConversationUserLink = thinky.createModel('convuserlink',
     id: type.string(),
     userId: type.string(),
     convId: type.string(),
-    onlineStatus: type.string()
+    onlineStatus: type.string().default('ONLINE')
   }).removeExtra()
 );
 
