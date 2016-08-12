@@ -87,7 +87,7 @@ export default class Subscriber {
   /**
    * retrieves data by using complicated rethink queries. upon retrieval, it calls emits
    * @method getData
-   * @returns undefined
+   * @returns unde fined
    */
   getData() {
     this.logger('getData should be overridden');

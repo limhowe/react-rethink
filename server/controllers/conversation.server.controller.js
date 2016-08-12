@@ -10,4 +10,11 @@ export default class ConversationController {
       res.status(400).json(err);
     })
   }
+
+  list(req, res) {
+    Conversation.run()
+    .then((result) => {
+      res.json(result);
+    })
+  }
 }

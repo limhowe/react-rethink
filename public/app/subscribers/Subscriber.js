@@ -1,5 +1,8 @@
 import _ from 'lodash';
+import socket from '../Socket';
+import { autobind } from 'core-decorators';
 
+// @TODO: use socket as a module
 // @TODO: change itemsArray into model
 export default class Subscriber {
   options;
@@ -20,6 +23,7 @@ export default class Subscriber {
     this.handler = handler;
   }
 
+  @autobind
   _handleReceivedData(response) {
     // action
     // data
