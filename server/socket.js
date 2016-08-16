@@ -11,6 +11,11 @@ const subscriberClasses = {
   ConversationMessages
 };
 
+export type SocketType = {
+  emit: (event: string, data: any) => void,
+  on: (event: string, handler: Function) => void
+};
+
 // @TODO handle session and authentication
 export default (app) => {
   // creates a new socket.io server

@@ -1,4 +1,18 @@
+// @flow
 import thinky from '../thinky';
+
+import type { DocType } from '../thinky';
+
+export type ConversationUserLinkType = {
+  id: string,
+  userId: string,
+  convId: string,
+  onlineStatus: string
+};
+
+export type ConversationUserLinkDocType = DocType & ConversationUserLinkType;
+
+
 const type = thinky.type;
 
 const ConversationUserLink = thinky.createModel('convuserlink',

@@ -1,5 +1,14 @@
+// @flow
 import thinky from '../thinky';
 import r from 'rethinkdb';
+
+export type MessageType = {
+  id: string,
+  text: string,
+  userId: string,
+  convId: string,
+  createdAt: string
+};
 
 const type = thinky.type;
 

@@ -1,13 +1,16 @@
+// @flow
 import Subscriber from './Subscriber';
 import ConversationUserLink from '../models/ConversationUserLink';
 
+import type { ConversationUserLinkType, ConversationUserLinkDocType } from '../models/ConversationUserLink';
+import type { ChangeFeedsType } from '../thinky';
+
 export default class UserConversations extends Subscriber {
-  // id = userId here
-  constructor(...args) {
+  constructor(...args: Array<any>) {
     super(...args);
   }
 
-  getData(id, action) {
+  getData(id: string = '', action: string = 'get') {
     if (id) {
       // in case of detecting change feed, we return specific resource rather than return all
       ConversationUserLink.get(id)
@@ -16,7 +19,7 @@ export default class UserConversations extends Subscriber {
         user: true
       })
       .run()
-      .then((data) => {
+      .then((data: ConversationUserLinkType) => {
         this.logger('Get Data Success');
         this.emit([data], action);
       });
@@ -27,7 +30,7 @@ export default class UserConversations extends Subscriber {
         user: true
       })
       .run()
-      .then((data) => {
+      .then((data: Array<ConversationUserLinkType>) => {
         this.logger('Get Data Success');
         this.emit(data, 'get');
       });
@@ -37,9 +40,9 @@ export default class UserConversations extends Subscriber {
   watch() {
     ConversationUserLink.filter({ userId: this.options.id })
     .changes()
-    .then((feeds) => {
+    .then((feeds: ChangeFeedsType) => {
       this.feeds = feeds;
-      feeds.each((error, doc) => {
+      feeds.each((error: any, doc: ConversationUserLinkDocType) => {
         // @TODO handle multiple doc change at the same time
         if (error) {
           this.logger('Error occured watching feed %s', JSON.stringify(error));
@@ -65,12 +68,12 @@ export default class UserConversations extends Subscriber {
         }
       });
     })
-    .catch((err) => {
+    .catch((err: any) => {
       this.logger('error occured %s', JSON.stringify(err));
     });
   }
 
-  getEventName() {
+  getEventName(): string {
     return 'UserConversations';
   }
 }

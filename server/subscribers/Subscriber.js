@@ -1,21 +1,35 @@
+// @flow
 import debug from 'debug';
 import _ from 'lodash';
 
-const logger = debug('rethink-chat subscriber');
+import type { SocketType } from '../socket';
+import type { ChangeFeedsType } from '../thinky';
+
 const _defaultOptions = {
   limit: 10 // to be used to set certain amount of resources to return
 };
 
+export type SubscriberOptionsType = {
+  limit: number,
+  id: string
+};
+
 export default class Subscriber {
+  // Properties
+  logger: Function;
+  feeds: ?ChangeFeedsType;
+  socket: SocketType;
+  options: SubscriberOptionsType;
+
   // ======================================
   // Public methods
   // ======================================
   /**
    * @method constructor
-   * @param {?Object} options
+   * @param {SubscriberOptionsType} options
    * @param {socket.io} io
    */
-  constructor(options, socket) {
+  constructor(options: SubscriberOptionsType, socket: SocketType) {
     this.logger = debug(`rethink-chat ${this.getEventName()}`);
 
     // set options
@@ -46,7 +60,7 @@ export default class Subscriber {
    * @param Array<Object> data
    * @returns undefined
    */
-  emit(data, action = 'get') {
+  emit(data: Array<Object>, action: string = 'get') {
     // @TODO handle data deletion and update on validate change
     // const objArray = this._validateChange(data);
 
@@ -87,9 +101,9 @@ export default class Subscriber {
   /**
    * retrieves data by using complicated rethink queries. upon retrieval, it calls emits
    * @method getData
-   * @returns unde fined
+   * @returns undefined
    */
-  getData() {
+  getData(id: string = '', action: string = 'get') {
     this.logger('getData should be overridden');
   }
 
@@ -97,7 +111,8 @@ export default class Subscriber {
    * @method getEventName
    * @returns {string}
    */
-  getEventName() {
+  getEventName(): string {
     this.logger('subscriber name should be overridden');
+    return '';
   }
 }
