@@ -1,9 +1,20 @@
 // @flow
+import md5 from 'md5';
 import thinky from '../thinky';
+
+import type { DocType } from '../thinky';
 
 export type UserType = {
   id: string,
   name: string,
+  email: string,
+  password: string,
+  authenticate: Function
+};
+
+export type UserDocType = DocType & UserType;
+
+export type AuthType = {
   email: string,
   password: string
 };
@@ -18,5 +29,9 @@ const User = thinky.createModel('user',
     password: type.string().required()
   }).removeExtra()
 );
+
+export function authenticate(password: string): string {
+  return md5(password);
+};
 
 export default User;

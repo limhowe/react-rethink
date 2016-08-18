@@ -1,7 +1,8 @@
+// @flow
 import Subscriber from './Subscriber';
 
 export default class ConversationMessages extends Subscriber {
-  getSubscriberName() {
+  getSubscriberName(): string {
     return 'ConversationMessages';
   }
 }

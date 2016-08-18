@@ -1,0 +1,5 @@
+declare class $PassportRequest {
+  login(user: Object, callback: Function): void;
+  logout(): void;
+  isAuthenticated(): bool;
+}

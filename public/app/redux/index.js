@@ -1,4 +1,3 @@
-// @TODO handle states for each page
 import { handleActions } from 'redux-actions';
 import reduceUserConversations from './reducers/reduceUserConversations';
 
@@ -12,14 +11,42 @@ import {
   CREATE_CONV_USER_LINK,
   RECEIVE_USER_CONVERSATIONS,
   RECEIVE_CONVERSATION_MESSAGES,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  AUTH_SIGNIN,
+  AUTH_SIGNIN_SUCCESS,
+  AUTH_SIGNIN_FAILURE,
+  AUTH_SIGNOUT,
+  AUTH_SIGNOUT_SUCCESS
 } from './actions';
+
+import type ConversationType from 'server/models/Conversation';
+import type MessageType from 'server/models/Message';
+import type UserType from 'server/models/User';
+
+export type LoginFormState = {
+  error: string
+};
+
+export type AppState = {
+  myConversations: Array<ConversationType>,
+  conversations: Array<ConversationType>,
+  messages: Array<MessageType>,
+  currentUser: UserType
+};
+
+export type State = {
+  form: ?Object, // redux-form states
+  app: AppState
+};
 
 export const initialState = {
   myConversations: [],
   conversations: [],
   messages: [],
-  currentUser: {}
+  currentUser: {},
+  loginForm: {
+    error: ''
+  }
 };
 
 export default handleActions({
@@ -38,5 +65,22 @@ export default handleActions({
   [SET_CURRENT_USER]: (state, action) => ({
     ...state,
     currentUser: Object.assign({}, action.payload)
-  })
+  }),
+  [AUTH_SIGNIN]: (state) => ({
+    ...state,
+    loginForm: {
+      ...state.loginForm,
+      error: ''
+    }
+  }),
+  [AUTH_SIGNIN_SUCCESS]: (state) => state,
+  [AUTH_SIGNIN_FAILURE]: (state, action) => ({
+    ...state,
+    loginForm: {
+      ...state.loginForm,
+      error: action.payload
+    }
+  }),
+  [AUTH_SIGNOUT]: (state) => state,
+  [AUTH_SIGNOUT_SUCCESS]: (state) => state
 }, initialState);

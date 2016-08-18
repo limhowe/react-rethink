@@ -1,6 +1,6 @@
 // @flow
 import thinky from '../thinky';
-const type = thinky.type;
+import type { DocType } from '../thinky';
 
 export type ConversationType = {
   id: string,
@@ -8,6 +8,9 @@ export type ConversationType = {
   status: string
 };
 
+export type ConversationDocType = DocType & ConversationType;
+
+const type = thinky.type;
 const Conversation = thinky.createModel('conversation',
   type.object().schema({
     id: type.string(),

@@ -1,8 +1,5 @@
-// @flow
-import type { $Response, $Request } from 'express';
-
 export default class {
-  index(req: $Request, res: $Response) {
+  index(req, res) {
     res.render('index');
   }
 }

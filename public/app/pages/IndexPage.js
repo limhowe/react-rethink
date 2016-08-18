@@ -1,14 +1,18 @@
+// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import UserSignInForm from '../components/forms/UserSignInForm';
 import UserCreateForm from '../components/forms/UserCreateForm';
 import ConversationCreateForm from '../components/forms/ConversationCreateForm';
 import ConvUserLinkCreateForm from '../components/forms/ConvUserLinkCreateForm';
 
-export default class IndexPage extends Component {
-  render() {
+import type { State } from 'public/app/redux';
+import type { Dispatch } from 'redux';
+
+export class IndexPage extends Component {
+  render(): React$Element<any> {
     const {
       app,
-      currentUser,
       myConversations
     } = this.props;
     const convList = myConversations.map((conv) => (
@@ -16,7 +20,7 @@ export default class IndexPage extends Component {
     ));
     return (
         <div>
-          <h1>Current User: <span>{currentUser.email}</span></h1>
+          <UserSignInForm />
           <UserCreateForm />
           <ConversationCreateForm />
           <ConvUserLinkCreateForm />
@@ -29,13 +33,12 @@ export default class IndexPage extends Component {
   }
 }
 
-const mapStateToprops = (state) => ({
+const mapStateToprops = (state: State) => ({
   app: state.app,
-  currentUser: state.app.currentUser,
   myConversations: state.app.myConversations
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
 });
 
 export default connect(mapStateToprops, mapDispatchToProps)(IndexPage);

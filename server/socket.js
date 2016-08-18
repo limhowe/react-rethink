@@ -2,6 +2,8 @@ import socketio from 'socket.io';
 import glob from 'glob';
 import path from 'path';
 import chalk from 'chalk';
+import passport from 'passport';
+import cookieParser from 'cookie-parser';
 
 import UserConversations from './subscribers/UserConversations';
 import ConversationMessages from './subscribers/ConversationMessages';
@@ -16,10 +18,26 @@ export type SocketType = {
   on: (event: string, handler: Function) => void
 };
 
-// @TODO handle session and authentication
-export default (app) => {
+export default (app, sessionMiddleware) => {
   // creates a new socket.io server
   const io = socketio.listen(app.server);
+
+  // handles socket authentication
+  io.use((socket, next) => {
+    cookieParser()(socket.request, {}, () => {
+      sessionMiddleware(socket.request, {}, () => {
+        passport.initialize()(socket.request, {}, () => {
+          passport.session()(socket.request, {}, () => {
+            if (socket.request.user) {
+              next(null, true);
+            } else {
+              next(new Error('User is not authenticated'), false);
+            }
+          });
+        });
+      });
+    });
+  });
 
   io.on('connection', (socket) => {
     const subscribers = {};

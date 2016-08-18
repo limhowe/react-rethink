@@ -1,6 +1,7 @@
 // @flow
 import thinky from '../thinky';
 import r from 'rethinkdb';
+import type { DocType } from '../thinky';
 
 export type MessageType = {
   id: string,
@@ -9,6 +10,9 @@ export type MessageType = {
   convId: string,
   createdAt: string
 };
+
+
+export type MessageDocType = DocType & MessageType;
 
 const type = thinky.type;
 

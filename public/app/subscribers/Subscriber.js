@@ -1,29 +1,41 @@
+// @flow
 import _ from 'lodash';
 import socket from '../Socket';
 import { autobind } from 'core-decorators';
 
+export type SubscriberOptionsType = {
+  limit: ?number,
+  id: string
+};
+
+export type ResultType = {
+  action: string,
+  data: Array<Object>
+};
+
 // @TODO: change itemsArray into model
 export default class Subscriber {
-  options;
-  itemsArray;
+  options: SubscriberOptionsType;
+  itemsArray: Array<Object>;
+  handler: ?Function;
 
-  constructor (options, handler = () => {}) {
+  constructor (options: SubscriberOptionsType, handler: Function = () => {}) {
     this.setOptions(options);
     this.setHandler(handler);
     this.itemsArray = [];
     this.subscribe();
   }
 
-  setOptions(options) {
+  setOptions(options: Object) {
     this.options = Object.assign({}, options, this.options);
   }
 
-  setHandler(handler) {
+  setHandler(handler: Function) {
     this.handler = handler;
   }
 
   @autobind
-  _handleReceivedData(response) {
+  _handleReceivedData(response: ResultType) {
     // action
     // data
     const {
@@ -53,7 +65,9 @@ export default class Subscriber {
         break;
     }
 
-    this.handler(this.itemsArray);
+    if (this.handler) {
+      this.handler(this.itemsArray);
+    }
   }
 
   subscribe() {
@@ -62,5 +76,9 @@ export default class Subscriber {
       subscriberName: this.getSubscriberName(),
       options: this.options
     });
+  }
+
+  getSubscriberName(): string {
+    return '';
   }
 }

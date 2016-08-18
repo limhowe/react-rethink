@@ -1,10 +1,11 @@
+// @flow
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import {domOnlyProps} from '../../helpers/domOnlyProps';
 export const fields = [ 'text', 'userId', 'convId' ];
 
-export default class MessageCreateForm extends Component {
-  render() {
+export class MessageCreateForm extends Component {
+  render(): React$Element<any> {
     const {fields: {userId, text, convId}, handleSubmit, submitting} = this.props;
     return (
       <form onSubmit={handleSubmit}>
