@@ -1,6 +1,9 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import {reducer as formReducer} from 'redux-form';
 import watch from 'redux-watch';
+import { routerReducer } from 'react-router-redux';
+import { persistStore, autoRehydrate } from 'redux-persist';
+import localForage from 'localforage';
 
 // middlewares
 import fsaThunkMiddleware from 'redux-fsa-thunk';
@@ -13,14 +16,27 @@ import UserConversations from '../subscribers/UserConversations';
 
 const reducer = combineReducers({
   app: reducers,
-  form: formReducer
+  form: formReducer,
+  routing: routerReducer
 });
 
-const loggerMiddleware = createLogger();
+// too many logging for redux-form. getting rid of them
+const loggerMiddleware = createLogger({
+  predicate: (getState, action) => action.type.indexOf('redux-form') === -1
+});
+
+// @TODO remove logger on production
+const middlewares = [fsaThunkMiddleware, promiseMiddleware, loggerMiddleware];
 
 const store = createStore(reducer,
-  applyMiddleware(fsaThunkMiddleware, promiseMiddleware, loggerMiddleware)
+  applyMiddleware(...middlewares),
+  autoRehydrate()
 );
+
+persistStore(store, {
+  storage: localForage,
+  whitelist: ['app']
+});
 
 // watchers
 const w = watch(store.getState, 'app.currentUser.id');

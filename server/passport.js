@@ -17,7 +17,7 @@ export default function() {
   passport.deserializeUser((id: string, done: Function) => {
     User.get(id)
     .run()
-    .then((user: UserType) => {
+    .then((user: UserDocType) => {
       done(null, user)
     })
     .catch((err: any) => {

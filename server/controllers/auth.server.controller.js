@@ -2,6 +2,8 @@
 import User, { authenticate } from '../models/User';
 import passport from 'passport';
 import chalk from 'chalk';
+import jwt from 'jsonwebtoken';
+import config from '../config';
 
 import type { $Response, $Request } from 'express';
 import type { UserType } from '../models/User';
@@ -22,7 +24,12 @@ export default class AuthController {
             console.log(chalk.red(err));
             res.status(400).send(err);
           } else {
-            res.json(user);
+            // signs a token
+            const token = jwt.sign(user, config.jwt.secret);
+            res.json({
+              ...user,
+              token
+            });
           }
         });
       }

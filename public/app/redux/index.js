@@ -2,6 +2,8 @@ import { handleActions } from 'redux-actions';
 import reduceUserConversations from './reducers/reduceUserConversations';
 
 import {
+  TOGGLE_DRAWER_ACTIVE,
+  TOGGLE_DRAWER_PINNED,
   CREATE_USER,
   CREATE_USER_SUCCESS,
   CREATE_CONVERSATION,
@@ -46,10 +48,28 @@ export const initialState = {
   currentUser: {},
   loginForm: {
     error: ''
+  },
+  layout: {
+    drawerActive: false,
+    drawerPinned: false
   }
 };
 
 export default handleActions({
+  [TOGGLE_DRAWER_ACTIVE]: (state) => ({
+    ...state,
+    layout: {
+      ...state.layout,
+      drawerActive: !state.layout.drawerActive
+    }
+  }),
+  [TOGGLE_DRAWER_PINNED]: (state) => ({
+    ...state,
+    layout: {
+      ...state.layout,
+      drawerPinned: !state.layout.drawerPinned
+    }
+  }),
   [CREATE_USER]: (state) => state,
   [CREATE_USER_SUCCESS]: (state) => state,
   [CREATE_CONVERSATION]: (state) => state,
@@ -82,5 +102,8 @@ export default handleActions({
     }
   }),
   [AUTH_SIGNOUT]: (state) => state,
-  [AUTH_SIGNOUT_SUCCESS]: (state) => state
+  [AUTH_SIGNOUT_SUCCESS]: (state) => ({
+    ...state,
+    currentUser: {}
+  })
 }, initialState);

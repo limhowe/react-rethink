@@ -8,6 +8,14 @@ import authSigninAction from './actions/authSignin';
 import authSignoutAction from './actions/authSignout';
 
 // ====================================
+// layout actions
+// ====================================
+export const TOGGLE_DRAWER_ACTIVE = 'layout/toggle-drawer-active';
+export const TOGGLE_DRAWER_PINNED = 'layout/toggle-drawer-pinned';
+export const toggleDrawerActive = createAction(TOGGLE_DRAWER_ACTIVE);
+export const toggleDrawerPinned = createAction(TOGGLE_DRAWER_PINNED);
+
+// ====================================
 // conversation actions
 // ====================================
 export const CREATE_CONVERSATION = 'conversation/create';

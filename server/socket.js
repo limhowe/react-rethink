@@ -18,26 +18,11 @@ export type SocketType = {
   on: (event: string, handler: Function) => void
 };
 
-export default (app, sessionMiddleware) => {
+export default (app) => {
   // creates a new socket.io server
   const io = socketio.listen(app.server);
 
-  // handles socket authentication
-  io.use((socket, next) => {
-    cookieParser()(socket.request, {}, () => {
-      sessionMiddleware(socket.request, {}, () => {
-        passport.initialize()(socket.request, {}, () => {
-          passport.session()(socket.request, {}, () => {
-            if (socket.request.user) {
-              next(null, true);
-            } else {
-              next(new Error('User is not authenticated'), false);
-            }
-          });
-        });
-      });
-    });
-  });
+  // @TODO handle socket authentication with jwt
 
   io.on('connection', (socket) => {
     const subscribers = {};

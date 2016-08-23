@@ -7,8 +7,7 @@ import glob from 'glob';
 import chalk from 'chalk';
 import consolidate from 'consolidate';
 import passport from 'passport';
-import session from 'express-session';
-import cookieParser from 'cookie-parser';
+import jwt from 'express-jwt';
 
 import initSocket from './socket';
 import config from './config';
@@ -57,15 +56,18 @@ initMiddlewares(app);
 initTemplateEngine(app);
 initRoutes(app);
 
-const sessionMiddleware = session({
-  saveUninitialized: true,
-  resave: true,
-  secret: config.sessionSecret,
-  cookie: config.sessionCookie,
-  name: config.sessionName
-});
-app.use(cookieParser());
-app.use(sessionMiddleware);
+app.use(jwt({
+  secret: config.jwt.secret,
+  credentialsRequired: false,
+  getToken: (req) => {
+    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+      return req.headers.authorization.split(' ')[1];
+    } else if (req.query && req.query.token) {
+      return req.query.token;
+    }
+    return null;
+  }
+}));
 
 initPassport(app);
 
@@ -73,7 +75,7 @@ initPassport(app);
 app.server.listen(port);
 console.log(chalk.green(`Express started on port ${app.server.address().port}`));
 
-initSocket(app, sessionMiddleware);
+initSocket(app);
 console.log(chalk.green(`Socket initialized`));
 
 // public
