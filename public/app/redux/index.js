@@ -1,6 +1,7 @@
 import { handleActions } from 'redux-actions';
 import reduceUserConversations from './reducers/reduceUserConversations';
-
+import reduceConversationMessages from './reducers/reduceConversationMessages';
+import { REHYDRATE } from 'redux-persist/constants';
 import {
   TOGGLE_DRAWER_ACTIVE,
   TOGGLE_DRAWER_PINNED,
@@ -11,6 +12,7 @@ import {
   SET_CONVERSATIONS,
   CREATE_MESSAGE,
   CREATE_CONV_USER_LINK,
+  DELETE_CONV_USER_LINK,
   RECEIVE_USER_CONVERSATIONS,
   RECEIVE_CONVERSATION_MESSAGES,
   SET_CURRENT_USER,
@@ -32,8 +34,13 @@ export type LoginFormState = {
 export type AppState = {
   myConversations: Array<ConversationType>,
   conversations: Array<ConversationType>,
-  messages: Array<MessageType>,
-  currentUser: UserType
+  messages: Array<Object>,
+  currentUser: UserType,
+  loginForm: Object,
+  layout: {
+    drawerPinned: bool,
+    drawerActive: bool
+  }
 };
 
 export type State = {
@@ -44,7 +51,7 @@ export type State = {
 export const initialState = {
   myConversations: [],
   conversations: [],
-  messages: [],
+  messages: {},
   currentUser: {},
   loginForm: {
     error: ''
@@ -56,6 +63,10 @@ export const initialState = {
 };
 
 export default handleActions({
+  [REHYDRATE]: (state, action) => ({
+    ...state,
+    currentUser: action.payload.app.currentUser
+  }),
   [TOGGLE_DRAWER_ACTIVE]: (state) => ({
     ...state,
     layout: {
@@ -80,8 +91,9 @@ export default handleActions({
   }),
   [CREATE_MESSAGE]: (state) => state,
   [CREATE_CONV_USER_LINK]: (state) => state,
+  [DELETE_CONV_USER_LINK]: (state) => state,
   [RECEIVE_USER_CONVERSATIONS]: (state, action) => (reduceUserConversations(state, action.payload)),
-  [RECEIVE_CONVERSATION_MESSAGES]: (state) => state,
+  [RECEIVE_CONVERSATION_MESSAGES]: (state, action) => (reduceConversationMessages(state, action.payload)),
   [SET_CURRENT_USER]: (state, action) => ({
     ...state,
     currentUser: Object.assign({}, action.payload)
@@ -104,6 +116,7 @@ export default handleActions({
   [AUTH_SIGNOUT]: (state) => state,
   [AUTH_SIGNOUT_SUCCESS]: (state) => ({
     ...state,
-    currentUser: {}
+    currentUser: {},
+    myConversations: []
   })
 }, initialState);

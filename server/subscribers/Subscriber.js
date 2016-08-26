@@ -69,7 +69,8 @@ export default class Subscriber {
 
     this.socket.emit(this.getEventName(), {
       action, // get, inserted, updated, deleted
-      data: objArray
+      data: objArray,
+      id: this.options.id
     });
   }
 

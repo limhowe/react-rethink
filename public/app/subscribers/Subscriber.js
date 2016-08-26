@@ -9,6 +9,7 @@ export type SubscriberOptionsType = {
 };
 
 export type ResultType = {
+  id: string,
   action: string,
   data: Array<Object>
 };
@@ -18,10 +19,12 @@ export default class Subscriber {
   options: SubscriberOptionsType;
   itemsArray: Array<Object>;
   handler: ?Function;
+  responseHandler: ?Function;
 
-  constructor (options: SubscriberOptionsType, handler: Function = () => {}) {
+  constructor (options: SubscriberOptionsType, handler: Function = () => {}, responseHandler: Function = () => {}) {
     this.setOptions(options);
     this.setHandler(handler);
+    this.setResponseHandler(responseHandler);
     this.itemsArray = [];
     this.subscribe();
   }
@@ -34,14 +37,21 @@ export default class Subscriber {
     this.handler = handler;
   }
 
+  setResponseHandler(responseHandler: Function) {
+    this.responseHandler = responseHandler;
+  }
+
   @autobind
   _handleReceivedData(response: ResultType) {
-    // action
-    // data
     const {
       action,
-      data
+      data,
+      id
     } = response;
+    if (id !== this.options.id) {
+      return;
+    }
+
     switch (action) {
       case 'get':
         this.itemsArray = data;
@@ -68,11 +78,22 @@ export default class Subscriber {
     if (this.handler) {
       this.handler(this.itemsArray);
     }
+
+    if (this.responseHandler) {
+      this.responseHandler(response);
+    }
   }
 
   subscribe() {
     socket.on(this.getSubscriberName(), this._handleReceivedData);
     socket.emit('subscribe', {
+      subscriberName: this.getSubscriberName(),
+      options: this.options
+    });
+  }
+
+  unsubscribe() {
+    socket.emit('unsubscribe', {
       subscriberName: this.getSubscriberName(),
       options: this.options
     });

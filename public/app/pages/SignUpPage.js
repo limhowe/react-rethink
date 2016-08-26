@@ -5,10 +5,14 @@ import { connect } from 'react-redux';
 import type { State } from 'public/app/redux';
 import type { Dispatch } from 'redux';
 
+import UserCreateForm from '../components/forms/UserCreateForm';
+
 export class SignUpPage extends Component {
   render(): React$Element<any> {
     return (
-      <h1>Sign Up Page</h1>
+      <div>
+        <UserCreateForm />
+      </div>
     );
   }
 }

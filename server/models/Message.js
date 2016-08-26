@@ -1,6 +1,5 @@
 // @flow
 import thinky from '../thinky';
-import r from 'rethinkdb';
 import type { DocType } from '../thinky';
 
 export type MessageType = {
@@ -22,7 +21,7 @@ const Message = thinky.createModel('message',
     text: type.string().required(),
     userId: type.string(),
     convId: type.string(),
-    createdAt: type.date().default(r.now())
+    createdAt: type.string()
   }).removeExtra()
 );
 

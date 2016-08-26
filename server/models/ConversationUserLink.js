@@ -12,7 +12,6 @@ export type ConversationUserLinkType = {
 
 export type ConversationUserLinkDocType = DocType & ConversationUserLinkType;
 
-
 const type = thinky.type;
 
 const ConversationUserLink = thinky.createModel('convuserlink',

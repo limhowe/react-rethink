@@ -11,6 +11,10 @@ export default class ConvUserLinkService extends BaseService {
     return request.get(`/api/conv-user-links/${id}`);
   }
 
+  delete(id) {
+    return request.delete(`/api/conv-user-links/${id}`);
+  }
+
   list() {
     return request.get('/api/conv-user-links');
   }

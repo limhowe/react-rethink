@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { autobind } from 'core-decorators';
+import _ from 'lodash';
 
 import { domOnlyProps } from '../../helpers/domOnlyProps';
 import { createConvUserLink } from '../../redux/actions';
@@ -18,7 +19,10 @@ export type ConvUserLinkValueType = {
 };
 
 export class ConvUserLinkCreateForm extends Component {
-  @autobind
+  componentDidMount() {
+    _.bindAll(this, 'handleSubmit'); // autobind does not work properly with react-hot-loader
+  }
+
   handleSubmit(values: ConvUserLinkValueType) {
     this.props.createConvUserLink({
       ...values,

@@ -1,5 +1,5 @@
 import Subscriber from './Subscriber';
-import Message from '../models/ConversationUserLink';
+import Message from '../models/Message';
 
 export default class ConversationMessages extends Subscriber {
   // id = userId here
@@ -13,18 +13,17 @@ export default class ConversationMessages extends Subscriber {
       // in case of detecting change feed, we return specific resource rather than return all
       Message.get(id)
       .getJoin({
-        conversation: true,
         user: true
       })
       .run()
       .then((data) => {
         this.logger('Get Data Success');
-        this.emit(data, action);
+        this.emit([data], action);
       });
     } else {
       Message.filter({ convId: this.options.id })
+      .orderBy('createdAt')
       .getJoin({
-        conversation: true,
         user: true
       })
       .run()

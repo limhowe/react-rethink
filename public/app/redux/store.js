@@ -1,9 +1,9 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import {reducer as formReducer} from 'redux-form';
-import watch from 'redux-watch';
-import { routerReducer } from 'react-router-redux';
+import { routerMiddleware, routerReducer } from 'react-router-redux';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import localForage from 'localforage';
+import { hashHistory } from 'react-router';
 
 // middlewares
 import fsaThunkMiddleware from 'redux-fsa-thunk';
@@ -11,8 +11,6 @@ import promiseMiddleware from 'redux-promise';
 import createLogger from 'redux-logger';
 
 import reducers from '../redux';
-import { receiveUserConversations } from './actions';
-import UserConversations from '../subscribers/UserConversations';
 
 const reducer = combineReducers({
   app: reducers,
@@ -26,7 +24,7 @@ const loggerMiddleware = createLogger({
 });
 
 // @TODO remove logger on production
-const middlewares = [fsaThunkMiddleware, promiseMiddleware, loggerMiddleware];
+const middlewares = [fsaThunkMiddleware, promiseMiddleware, routerMiddleware(hashHistory), loggerMiddleware];
 
 const store = createStore(reducer,
   applyMiddleware(...middlewares),
@@ -37,13 +35,5 @@ persistStore(store, {
   storage: localForage,
   whitelist: ['app']
 });
-
-// watchers
-const w = watch(store.getState, 'app.currentUser.id');
-store.subscribe(w((newVal, oldVal, objectPath) => {
-  new UserConversations({ id: newVal }, (userConversations) => {
-    store.dispatch(receiveUserConversations(userConversations));
-  })
-}));
 
 export default store;

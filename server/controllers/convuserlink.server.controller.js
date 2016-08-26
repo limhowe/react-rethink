@@ -12,6 +12,17 @@ export default class ConversationUserLinkController {
     })
     .catch((err: any) => {
       res.status(400).json(err);
+    });
+  }
+
+  delete(req: $Request, res: $Response) {
+    ConversationUserLink.get(req.params.convUserLinkId)
+    .delete()
+    .then(() => {
+      res.json({ success: true });
     })
+    .catch((err: any) => {
+      res.status(400).json(err);
+    });
   }
 }

@@ -1,6 +1,7 @@
 // @flow
 import type { Dispatch } from 'redux';
 import type { AuthType } from 'server/models/User';
+import { push } from 'react-router-redux';
 
 import { authSigninSuccess, authSigninFailure } from 'public/app/redux/actions';
 import AuthService from 'public/app/services/AuthService';
@@ -12,6 +13,7 @@ export default function(authData: AuthType) {
     authService.signin(authData)
     .then((resp) => {
       dispatch(authSigninSuccess(resp.body));
+      dispatch(push('/conversations/all'));
     })
     .catch((err) => {
       let message = 'Unknown Error';

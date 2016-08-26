@@ -22,17 +22,17 @@ export class IndexPage extends Component {
       <Layout>
         <NavDrawer active={drawerActive}
             pinned={drawerPinned}
-            permanentAt='xxxl'
+            permanentAt='xl'
             onOverlayClick={ toggleDrawerActive }>
           <Navigation type="vertical">
+            <LinkContainer to="/conversations/create">
+              <Link label="Create Conversation" />
+            </LinkContainer>
             <LinkContainer to="/conversations/all">
-              <Link label="All Conversations" />
+              <Link label="Join Conversations" />
             </LinkContainer>
             <LinkContainer to="/conversations/mine">
               <Link label="My Conversations" />
-            </LinkContainer>
-            <LinkContainer to="/conversations/create">
-              <Link label="Create Conversation" />
             </LinkContainer>
           </Navigation>
         </NavDrawer>

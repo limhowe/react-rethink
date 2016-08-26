@@ -5,10 +5,14 @@ import { connect } from 'react-redux';
 import type { State } from 'public/app/redux';
 import type { Dispatch } from 'redux';
 
+import ConvUserLinkCreateForm from 'public/app/components/forms/ConvUserLinkCreateForm';
+
 export class AllConversationsPage extends Component {
   render(): React$Element<any> {
     return (
-      <h1>All Conversations Page</h1>
+      <div>
+        <ConvUserLinkCreateForm />
+      </div>
     );
   }
 }
