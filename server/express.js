@@ -52,6 +52,13 @@ const port = process.env.PORT || config.port;
 
 app.server = http.createServer(app);
 
+// allow cors
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
 initMiddlewares(app);
 initTemplateEngine(app);
 initRoutes(app);
