@@ -8,6 +8,7 @@ import chalk from 'chalk';
 import consolidate from 'consolidate';
 import passport from 'passport';
 import jwt from 'express-jwt';
+import morgan from 'morgan';
 
 import initSocket from './socket';
 import config from './config';
@@ -58,6 +59,9 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
+
+// add logging with morgan
+app.use(morgan('combined'));
 
 initMiddlewares(app);
 initTemplateEngine(app);
