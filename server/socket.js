@@ -21,6 +21,7 @@ export type SocketType = {
 export default (app) => {
   // creates a new socket.io server
   const io = socketio.listen(app.server);
+  io.set('origins', '*:*');
 
   // @TODO handle socket authentication with jwt
 
