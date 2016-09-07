@@ -5,10 +5,7 @@ import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
-  devtool: 'eval',
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:3001', // WebpackDevServer host and port
-    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     `${config.root}public/main.js`
   ],
   output: {
@@ -17,7 +14,6 @@ export default {
     pathinfo: true
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('styles.css', { allChunks: true })
   ],
   resolve: {

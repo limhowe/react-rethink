@@ -7,7 +7,7 @@ export default {
   buildPath: `${root}.build`,
   server: {
     src: `${root}server/**/*.js`,
-    dist: `${root}.build/server`,
+    dist: `${root}.build`,
     base: `${root}server/`
   },
   public: {

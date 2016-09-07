@@ -13,10 +13,18 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <script src="/socket.io/socket.io.js"></script>
-    <link rel="stylesheet" href="http://localhost:3001/styles.css">
+    {% if process.env.NODE_ENV === 'local' %}
+      <link rel="stylesheet" href="http://localhost:3001/styles.css">
+    {% else %}
+      <link rel="stylesheet" href="/public/styles.css">
+    {% endif %}
   </head>
 <body>
   <div id="root"></div>
-  <script src="http://localhost:3001/bundle.js"></script>
+  {% if process.env.NODE_ENV === 'local' %}
+    <script src="http://localhost:3001/bundle.js"></script>
+  {% else %}
+    <script src="/public/bundle.js"></script>
+  {% endif %}
 </body>
 </html>

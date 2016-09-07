@@ -90,6 +90,6 @@ initSocket(app);
 console.log(chalk.green(`Socket initialized`));
 
 // public
-// app.use(express.static('public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 export default app;

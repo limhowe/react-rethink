@@ -1,6 +1,6 @@
 // @TODO: load config for each environment
 export default {
-  port: 3000,
+  port: process.env.PORT || 3000,
   rethinkDB: {
     dbName: process.env.RDB_DB || 'hzchat',
     dbHost: process.env.RDB_HOST || 'localhost',

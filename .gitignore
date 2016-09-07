@@ -28,3 +28,6 @@ rethinkdb_data
 .build
 /.idea/workspace.xml
 /.idea
+
+# pem file for deploy
+pem
