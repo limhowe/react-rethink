@@ -31,3 +31,6 @@ rethinkdb_data
 
 # pem file for deploy
 pem
+
+# temp lang files from onesky
+onesky-i18n

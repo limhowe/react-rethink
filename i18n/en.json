@@ -1,0 +1,23 @@
+{
+  "pageTitles": {
+    "createConversation": "Create Conversation",
+    "joinConversation": "Join Conversation",
+    "myConversations": "My Conversations",
+    "createUser": "CreateUser",
+    "signIn": "Sign In"
+  },
+  "fieldLabels": {
+    "submit": "Submit",
+    "join": "Join",
+    "message": "Message",
+    "email": "Email",
+    "name": "Name",
+    "password": "Password",
+    "signIn": "Sign In"
+  },
+  "topBar": {
+    "logOut": "Log Out",
+    "logIn": "Log In",
+    "signUp": "Sign Up"
+  }
+}
