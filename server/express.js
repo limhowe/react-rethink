@@ -10,6 +10,7 @@ import passport from 'passport';
 import jwt from 'express-jwt';
 import morgan from 'morgan';
 
+import localisation from './localisation';
 import initSocket from './socket';
 import config from './config';
 
@@ -81,6 +82,7 @@ app.use(jwt({
 }));
 
 initPassport(app);
+app.use(localisation());
 
 // start listening
 app.server.listen(port);
