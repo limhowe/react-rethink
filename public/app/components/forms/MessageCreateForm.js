@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Input, Button } from 'react-toolbox';
@@ -28,12 +29,12 @@ export class MessageCreateForm extends Component {
   }
 
   render(): React$Element<any> {
-    const {fields: {text}, handleSubmit} = this.props;
+    const {fields: {text}, handleSubmit, t} = this.props;
     return (
       <section>
         <form onSubmit={handleSubmit(this.handleSubmit)}>
-          <Input type="text" label="Message" {...domOnlyProps(text)} />
-          <Button label="Submit" primary raised />
+          <Input type="text" label={t('fieldLabels.message')} {...domOnlyProps(text)} />
+          <Button label={t('fieldLabels.submit')} primary raised />
         </form>
       </section>
     );
@@ -51,5 +52,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 export default reduxForm({
   fields
 })(
-  connect(mapStateToprops, mapDispatchToProps)(MessageCreateForm)
+  translate()(connect(mapStateToprops, mapDispatchToProps)(MessageCreateForm))
 );

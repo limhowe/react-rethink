@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import { Layout, AppBar, Panel, NavDrawer, Navigation, Link } from 'react-toolbox';
@@ -16,7 +17,8 @@ export class IndexPage extends Component {
     const {
       drawerActive,
       drawerPinned,
-      toggleDrawerActive
+      toggleDrawerActive,
+      t
     } = this.props;
     return (
       <Layout>
@@ -26,13 +28,13 @@ export class IndexPage extends Component {
             onOverlayClick={ toggleDrawerActive }>
           <Navigation type="vertical">
             <LinkContainer to="/conversations/create">
-              <Link label="Create Conversation" />
+              <Link label={t('pageTitles.createConversation')} />
             </LinkContainer>
             <LinkContainer to="/conversations/all">
-              <Link label="Join Conversations" />
+              <Link label={t('pageTitles.joinConversation')} />
             </LinkContainer>
             <LinkContainer to="/conversations/mine">
-              <Link label="My Conversations" />
+              <Link label={t('pageTitles.myConversations')} />
             </LinkContainer>
           </Navigation>
         </NavDrawer>
@@ -56,4 +58,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   toggleDrawerActive: () => dispatch(toggleDrawerActive())
 });
 
-export default connect(mapStateToprops, mapDispatchToProps)(IndexPage);
+export default translate()(connect(mapStateToprops, mapDispatchToProps)(IndexPage));

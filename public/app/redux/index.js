@@ -65,7 +65,7 @@ export const initialState = {
 export default handleActions({
   [REHYDRATE]: (state, action) => ({
     ...state,
-    currentUser: action.payload && action.payload.app && action.payload.app.currentUser
+    currentUser: action.payload && action.payload.app && action.payload.app.currentUser || {}
   }),
   [TOGGLE_DRAWER_ACTIVE]: (state) => ({
     ...state,

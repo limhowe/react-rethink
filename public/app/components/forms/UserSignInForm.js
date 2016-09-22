@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { domOnlyProps } from 'public/app/helpers/domOnlyProps';
@@ -14,15 +15,15 @@ export const fields = [ 'email', 'password' ];
 
 export class UserCreateForm extends Component {
   render(): React$Element<any> {
-    const {fields: {email, password}, handleSubmit, submitting, authSignin, errorMessage} = this.props;
+    const {fields: {email, password}, handleSubmit, submitting, authSignin, errorMessage, t} = this.props;
     return (
       <section>
         <form onSubmit={handleSubmit(authSignin)}>
-          <h1>Sign In</h1>
+          <h1>{t('pageTitles.signIn')}</h1>
           <p>{errorMessage}</p>
-          <Input type="email" icon="email" required label="Email" {...domOnlyProps(email)} />
-          <Input type="password" icon="lock" required label="Password" {...domOnlyProps(password)} />
-          <Button label="Sign In" primary raised />
+          <Input type="email" icon="email" required label={t('fieldLabels.email')} {...domOnlyProps(email)} />
+          <Input type="password" icon="lock" required label={t('fieldLabels.password')} {...domOnlyProps(password)} />
+          <Button label={t('fieldLabels.signIn')} primary raised />
         </form>
       </section>
     );
@@ -42,5 +43,5 @@ export default reduxForm({
   form: 'user-login',
   fields
 })(
-  connect(mapStateToprops, mapDispatchToProps)(UserCreateForm)
+  translate()(connect(mapStateToprops, mapDispatchToProps)(UserCreateForm))
 );

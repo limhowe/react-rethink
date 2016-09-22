@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import MessageCard from 'public/app/components/MessageCard';
@@ -10,14 +11,15 @@ import type { Dispatch } from 'redux';
 export class MyConversationsPage extends Component {
   render(): React$Element<any> {
     const {
-      myConversations
-    } = this.props.app;
+      app: { myConversations },
+      t
+    } = this.props;
     const convList = myConversations.map((conv) => (
       <MessageCard conversation={conv.conversation} key={conv.id} convUserLinkId={conv.id} />
     ));
     return (
       <div >
-        <h2>My Conversations</h2>
+        <h2>{t('pageTitles.myConversations')}</h2>
         {convList}
       </div>
     );
@@ -31,4 +33,4 @@ const mapStateToprops = (state: State) => ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 });
 
-export default connect(mapStateToprops, mapDispatchToProps)(MyConversationsPage);
+export default translate()(connect(mapStateToprops, mapDispatchToProps)(MyConversationsPage));

@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { autobind } from 'core-decorators';
@@ -31,14 +32,14 @@ export class ConvUserLinkCreateForm extends Component {
   }
 
   render(): React$Element<any> {
-    const {fields: {convId}, handleSubmit, submitting, createConvUserLink, conversations, currentUser} = this.props;
+    const {fields: {convId}, handleSubmit, submitting, createConvUserLink, conversations, currentUser, t} = this.props;
     const options = conversations.map((conv) => ({value: conv.id, label: conv.title}));
     return (
       <section>
         <form onSubmit={handleSubmit(this.handleSubmit)}>
-          <h1>Join Conversation</h1>
+          <h1>{t('pageTitles.joinConversation')}</h1>
           <Dropdown source={options} {...domOnlyProps(convId)} />
-          <Button label="Join" primary raised />
+          <Button label={t('fieldLabels.join')} primary raised />
         </form>
       </section>
     );
@@ -58,5 +59,5 @@ export default reduxForm({
   form: 'conv-user-link-create',
   fields
 })(
-  connect(mapStateToprops, mapDispatchToProps)(ConvUserLinkCreateForm)
+  translate()(connect(mapStateToprops, mapDispatchToProps)(ConvUserLinkCreateForm))
 );

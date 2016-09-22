@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { domOnlyProps } from '../../helpers/domOnlyProps';
@@ -14,13 +15,13 @@ export const fields = [ 'title' ];
 
 export class ConversationCreateForm extends Component {
   render(): React$Element<any> {
-    const {fields: {title}, handleSubmit, submitting, createConversation} = this.props;
+    const {fields: {title}, handleSubmit, submitting, createConversation, t} = this.props;
     return (
       <section>
         <form onSubmit={handleSubmit(createConversation)}>
-          <h1>Create Conversation</h1>
+          <h1>{t('pageTitles.createConversation')}</h1>
           <Input type="text" label="Title" {...domOnlyProps(title)} />
-          <Button label="Submit" primary raised />
+          <Button label={t('fieldLabels.submit')} primary raised />
         </form>
       </section>
     );
@@ -39,5 +40,5 @@ export default reduxForm({
   form: 'conversation-create',
   fields
 })(
-  connect(mapStateToprops, mapDispatchToProps)(ConversationCreateForm)
+  translate()(connect(mapStateToprops, mapDispatchToProps)(ConversationCreateForm))
 );
