@@ -2,7 +2,7 @@
 Chat application using rethinkdb, socket.io, express, reactjs
 
 This app uses full features of rethinkdb to get notified about database change.
-[Horizon.io](https://github.com/rethinkdb/horizon) was on the original roadmap, but it had problem with watchign joined queries, and we are using [socket.io](https://github.com/socketio/socket.io) for clinet-server communication.
+[Horizon.io](https://github.com/rethinkdb/horizon) was on the original roadmap, but it had problem with watching joined queries, and we are using [socket.io](https://github.com/socketio/socket.io) for clinet-server communication.
 
 [Gulp](https://github.com/gulpjs/gulp) is used as task runner, and [webpack](https://github.com/webpack/webpack) is used for building the application.
 
@@ -15,7 +15,9 @@ This app uses full features of rethinkdb to get notified about database change.
 - [React.js](https://github.com/facebook/react)
 - [Redux](https://github.com/reactjs/redux)
 - [react-i18next](https://github.com/i18next/react-i18next)
-- [rethinkdb](https://github.com/rethinkdb/rethinkdb)
+- [passport.js](https://github.com/jaredhanson/passport)
+- [rethinkdb](https://github.com/rethinkdb/rethinkdb) - rethinkdb driver
+- [thinky](https://github.com/neumino/thinky) - node.js ORM for rethinkdb
 - [socket.io](https://github.com/socketio/socket.io)
 
 ## Contribution
