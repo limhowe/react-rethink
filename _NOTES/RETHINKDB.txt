@@ -1,8 +1,0 @@
-
- - foltz - installed with brew
-
- To have launchd start rethinkdb now and restart at login:
-   brew services start rethinkdb
- Or, if you don't want/need a background service you can just run:
-   rethinkdb
-
